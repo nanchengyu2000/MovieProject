@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1.0.dtd">
+<generatorConfiguration>
+
+    <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+    <!--
+            targetRuntime: 执行生成的逆向文件工程的版本
+                    MyBatis3Simple: 生成基本的CRUD (清新简洁版)
+                    Mybatis3： 生成带条件的CRUD（奢华尊享版）
+     -->
+    <context id="mysqlTables" targetRuntime="MyBatis3">
+        <!-- 数据库连接 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/movie?characterEncoding=utf8"
+                        userId="root" password="2049251148">
+            <!-- 解决table schema中有多个重名的表生成表结构不一致问题 -->
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+        <!--javaBean的生成策略-->
+        <javaModelGenerator targetPackage="entity" targetProject=".\src\main\java">
+            <!--enableSubPackages，表示是否能够使用子包-->
+            <property name="enableSubPackages" value="true" />
+            <!-- 从数据库返回的值被清理前后的空格  -->
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!--SQL映射文件的生成策略-->
+        <sqlMapGenerator targetPackage="mapper" targetProject=".\src\main\resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!-- Mapper接口的生成策略 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="mapper" targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!-- 生成那些表，tableName对应数据库表，domainObjectName对应实体类名 -->
+<!--        对应的mapper接口不需要创建，它会根据实体类+mapper来设置它的mapper接口名称-->
+<!--                <table tableName="user"  domainObjectName="User"/>-->
+                <table tableName="movie"  domainObjectName="Movie"/>
+<!--                <table tableName="mark"  domainObjectName="Mark"/>-->
+<!--                    <table tableName="history"  domainObjectName="History"/>-->
+
+        <!--                <table tableName="administrator"  domainObjectName="Administrator"/>-->
+    </context>
+</generatorConfiguration>
